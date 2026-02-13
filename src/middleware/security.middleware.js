@@ -2,7 +2,7 @@ import aj from "../config/arcjet.js";
 import logger from "#config/logger.js";
 import { slidingWindow } from "@arcjet/node";
 
-const securityMiddleware = async (req,res,next) => {
+export const securityMiddleware = async (req,res,next) => {
     try {
         const role = req.user ?.role || 'guest';
         let limit;
@@ -51,3 +51,5 @@ const securityMiddleware = async (req,res,next) => {
         res.status(500).json({ error: 'Internal server error', message:'Something went wrong with security middleware'})
     }
 }
+
+export default securityMiddleware;
