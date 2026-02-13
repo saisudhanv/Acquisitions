@@ -1,0 +1,16 @@
+# Add these lines to your existing .gitignore file
+
+# Environment files (keep templates, ignore actual secrets)
+.env
+.env.local
+.env.*.local
+
+# Neon Local metadata directory
+.neon_local/
+
+# Docker volumes and build cache
+.docker/
+
+# Application logs
+logs/
+*.log
