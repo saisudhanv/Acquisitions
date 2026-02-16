@@ -8,19 +8,22 @@ import ws from 'ws';
 let sql;
 let db;
 
-if(process.env.NODE_ENV === 'development') {
-    // Use WebSocket for neon-local in development
+const databaseUrl = process.env.DATABASE_URL || '';
+const isNeonLocal = databaseUrl.includes('neon-local');
+
+if (process.env.NODE_ENV === 'development' && isNeonLocal) {
+    // Use WebSocket + Pool for neon-local in development
     neonConfig.webSocketConstructor = ws;
     neonConfig.useSecureWebSocket = false;
     neonConfig.pipelineTLS = false;
     neonConfig.pipelineConnect = false;
-    
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+    const pool = new Pool({ connectionString: databaseUrl });
     db = drizzleServerless(pool);
     sql = pool;
 } else {
-    // Use HTTP for production (Neon cloud)
-    sql = neon(process.env.DATABASE_URL);
+    // Use HTTP for Neon cloud or non-local dev
+    sql = neon(databaseUrl);
     db = drizzleHttp(sql);
 }
 

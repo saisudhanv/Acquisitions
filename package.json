@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "imports": {
+    "#src/*": "./src/*",
     "#config/*": "./src/config/*",
     "#models/*": "./src/models/*",
     "#controllers/*": "./src/controllers/*",

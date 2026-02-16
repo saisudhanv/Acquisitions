@@ -43,7 +43,7 @@ export const signup = async (req, res, next) => {
         logger.error('Signup error',e);
         if (e.message === 'User with this email already exists')
         {
-            return res.status(400).json({error: 'Email already exists'});
+            return res.status(409).json({error: 'Email already exists'});
         }
         next(e);
     }
@@ -121,4 +121,4 @@ export const signout = async (req, res, next) => {
     }
 };
 
-export default { signup, signin, signout };
+// export default { signup, signin, signout };
