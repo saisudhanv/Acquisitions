@@ -22,7 +22,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "node scripts/migrate.js",
     "db:studio": "drizzle-kit studio",
     "dev:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/setup-dev.ps1",
     "prod:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1"
@@ -52,6 +52,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
+    "pg": "^8.11.5",
     "winston": "^3.19.0",
     "ws": "^8.19.0",
     "zod": "^4.3.6"
