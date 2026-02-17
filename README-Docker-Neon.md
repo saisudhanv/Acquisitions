@@ -42,15 +42,16 @@ chmod +x scripts/setup-dev.sh
 ### Manual Setup
 
 1. **Configure Environment Variables**
-   
+
    Update `.env.development` with your Neon credentials:
+
    ```env
    NEON_API_KEY=your_actual_api_key_here
    NEON_PROJECT_ID=your_actual_project_id_here
    ```
 
 2. **Start Development Environment**
-   
+
    ```bash
    docker-compose -f docker-compose.dev.yml --env-file .env.development up --build
    ```
@@ -90,15 +91,16 @@ psql postgres://neon:npg@localhost:5432/acquisitions_db
 ### Environment Configuration
 
 1. **Update Production Environment**
-   
+
    Update `.env.production` with your production values:
+
    ```env
    DATABASE_URL=postgres://username:password@ep-something.us-east-1.aws.neon.tech/dbname?sslmode=require
    API_BASE_URL=https://your-production-domain.com
    ```
 
 2. **Deploy with Docker Compose**
-   
+
    ```bash
    docker-compose -f docker-compose.prod.yml --env-file .env.production up -d
    ```
@@ -137,7 +139,7 @@ This setup supports both database drivers simultaneously:
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false } // for development with Neon Local
+  ssl: { rejectUnauthorized: false }, // for development with Neon Local
 });
 ```
 
@@ -172,36 +174,43 @@ const result = await sql`SELECT * FROM users`;
 ### Development Issues
 
 **Neon Local not connecting:**
+
 - Verify your `NEON_API_KEY` and `NEON_PROJECT_ID` are correct
 - Check that the neon-local container is healthy: `docker-compose -f docker-compose.dev.yml ps`
 
 **SSL Certificate errors:**
+
 - For JavaScript apps, ensure `ssl: { rejectUnauthorized: false }` is set in development
 
 **Git branch integration not working:**
+
 - Ensure Docker Desktop for Mac uses gRPC FUSE instead of VirtioFS
 - Check that `.git/HEAD` is properly mounted
 
 ### Production Issues
 
 **Database connection failures:**
+
 - Verify your production `DATABASE_URL` is correct
 - Ensure your production environment has the proper SSL configuration
 - Check that your Neon database allows connections from your deployment platform
 
 **Environment variable issues:**
+
 - Ensure all required environment variables are set in your deployment platform
 - Verify that sensitive values are not logged or exposed
 
 ## Environment Variables Reference
 
 ### Development
+
 - `NEON_API_KEY`: Your Neon API key
 - `NEON_PROJECT_ID`: Your Neon project ID
 - `PARENT_BRANCH_ID`: Parent branch for ephemeral branches (optional, defaults to main)
 - `DATABASE_URL`: Auto-configured to use Neon Local proxy
 
 ### Production
+
 - `DATABASE_URL`: Your Neon cloud database connection string
 - `NODE_ENV`: Set to "production"
 - `API_BASE_URL`: Your production domain

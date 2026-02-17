@@ -50,17 +50,17 @@ jobs:
         run: |
           echo "## 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ steps.tests.outcome }}" == "success" ]; then
             echo "### ✅ All tests passed!" >> $GITHUB_STEP_SUMMARY
           else
             echo "### ❌ Some tests failed" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📊 Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ -f coverage/coverage-summary.json ]; then
             LINES=$(jq -r '.total.lines.pct // "N/A"' coverage/coverage-summary.json)
             STATEMENTS=$(jq -r '.total.statements.pct // "N/A"' coverage/coverage-summary.json)

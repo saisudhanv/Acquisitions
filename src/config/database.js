@@ -12,14 +12,14 @@ const databaseUrl = process.env.DATABASE_URL || '';
 const isNeonLocal = databaseUrl.includes('neon-local');
 
 if (process.env.NODE_ENV === 'development' && isNeonLocal) {
-    // Use standard Postgres driver for neon-local in development
-    const pool = new Pool({ connectionString: databaseUrl });
-    db = drizzleNodePostgres(pool);
-    sql = pool;
+  // Use standard Postgres driver for neon-local in development
+  const pool = new Pool({ connectionString: databaseUrl });
+  db = drizzleNodePostgres(pool);
+  sql = pool;
 } else {
-    // Use HTTP for Neon cloud or non-local dev
-    sql = neon(databaseUrl);
-    db = drizzleHttp(sql);
+  // Use HTTP for Neon cloud or non-local dev
+  sql = neon(databaseUrl);
+  db = drizzleHttp(sql);
 }
 
 export { db, sql };

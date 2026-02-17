@@ -17,7 +17,7 @@ const connectionString = isNeonLocal
 
 const pool = new Pool({
   connectionString,
-  ssl: isNeonLocal ? false : undefined
+  ssl: isNeonLocal ? false : undefined,
 });
 const db = drizzle(pool);
 

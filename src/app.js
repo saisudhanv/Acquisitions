@@ -1,6 +1,6 @@
 import express from 'express';
 import logger from '#config/logger.js';
-import helmet from "helmet";
+import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -11,23 +11,32 @@ import usersRoutes from '#routes/users.routes.js';
 
 const app = express();
 
-app.use(helmet({
-  contentSecurityPolicy: process.env.NODE_ENV === 'development' ? false : {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:"],
-    }
-  }
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy:
+      process.env.NODE_ENV === 'development'
+        ? false
+        : {
+            directives: {
+              defaultSrc: ["'self'"],
+              styleSrc: ["'self'", "'unsafe-inline'"],
+              scriptSrc: ["'self'"],
+              imgSrc: ["'self'", 'data:'],
+            },
+          },
+  })
+);
 app.use(cors());
 app.use(express.json({ type: ['application/json', 'text/plain'] }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(authenticate);
 
-app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
+app.use(
+  morgan('combined', {
+    stream: { write: message => logger.info(message.trim()) },
+  })
+);
 
 app.use(securityMiddleware);
 
@@ -36,22 +45,26 @@ app.get('/', (req, res) => {
   res.status(200).send('Hello Acquisitions!');
 });
 
-
-app.get('/health', (req,res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString(), uptime: process.uptime() });
+app.get('/health', (req, res) => {
+  res
+    .status(200)
+    .json({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    });
 });
 
-app.get('/api', (req,res) => {
-  res.status(200).json({ message:'Acquisitions API is running'});
+app.get('/api', (req, res) => {
+  res.status(200).json({ message: 'Acquisitions API is running' });
 });
 
 app.use('/api/auth', authRoutes);
 
 app.use('/api/users', usersRoutes);
 
-app.use((req,res) => {
+app.use((req, res) => {
   res.status(404).json({ error: 'Route Not found' });
-})
-
+});
 
 export default app;
