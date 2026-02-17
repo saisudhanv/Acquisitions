@@ -25,7 +25,8 @@
     "db:migrate": "node scripts/migrate.js",
     "db:studio": "drizzle-kit studio",
     "dev:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/setup-dev.ps1",
-    "prod:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1"
+    "prod:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
@@ -59,10 +60,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.8",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "prettier": "^3.8.1"
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1",
+    "supertest": "^7.2.2"
   }
 }
