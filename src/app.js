@@ -17,13 +17,13 @@ app.use(
       process.env.NODE_ENV === 'development'
         ? false
         : {
-            directives: {
-              defaultSrc: ["'self'"],
-              styleSrc: ["'self'", "'unsafe-inline'"],
-              scriptSrc: ["'self'"],
-              imgSrc: ["'self'", 'data:'],
-            },
+          directives: {
+            defaultSrc: ['\'self\''],
+            styleSrc: ['\'self\'', '\'unsafe-inline\''],
+            scriptSrc: ['\'self\''],
+            imgSrc: ['\'self\'', 'data:'],
           },
+        },
   })
 );
 app.use(cors());
