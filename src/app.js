@@ -6,6 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from '#routes/auth.routes.js';
 import securityMiddleware from '#middleware/security.middleware.js';
+import authenticate from '#middleware/auth.middleware.js';
 import usersRoutes from '#routes/users.routes.js';
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(cors());
 app.use(express.json({ type: ['application/json', 'text/plain'] }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(authenticate);
 
 app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
 
