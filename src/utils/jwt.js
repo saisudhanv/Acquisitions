@@ -1,3 +1,5 @@
+// signs and verifies JWTs.
+
 import jwt from 'jsonwebtoken';
 
 import logger from '#config/logger.js';

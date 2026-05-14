@@ -1,3 +1,5 @@
+// creates users and authenticates credentials against the database.
+
 import logger from '#config/logger.js';
 import bcrypt from 'bcrypt';
 import { db } from '#config/database.js';

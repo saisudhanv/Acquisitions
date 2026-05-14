@@ -1,3 +1,5 @@
+// turns Zod validation errors into a readable string.
+
 export const formatValidationError = errors => {
   if (!errors || !errors.issues) return 'Validation failed';
 

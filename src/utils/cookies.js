@@ -1,3 +1,5 @@
+// reads, sets, and clears the auth cookie.
+
 export const cookies = {
   getOptions: () => ({
     httpOnly: true,
